@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: pizzasreyna-db-dev
+    environment:
+      POSTGRES_DB: pizzasreyna
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    networks:
+      - pizzasreyna-network
+
+volumes:
+  postgres_dev_data:
+
+networks:
+  pizzasreyna-network:
+    driver: bridge
