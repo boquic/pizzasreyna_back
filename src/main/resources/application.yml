@@ -4,13 +4,13 @@ server:
 spring:
   application:
     name: pizzas-reyna-backend
-  
+
   datasource:
     url: jdbc:postgresql://localhost:5432/pizzasreyna
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-  
+
   jpa:
     hibernate:
       ddl-auto: validate
@@ -19,7 +19,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-  
+
   flyway:
     enabled: true
     baseline-on-migrate: true
@@ -27,7 +27,9 @@ spring:
     schemas: public
 
 jwt:
-  secret: pizzasreyna-secret-key-2024-super-secure-change-in-production
+  # For development only - in production use environment variables or a secure vault
+  # The secret should be at least 256 bits (32 characters) for HS256 algorithm
+  secret: ${JWT_SECRET:UHl6emFzUmV5bmEyMDI0U2VjcmV0S2V5MzJDaGFyYWN0ZXJz}
   expiration: 86400000 # 24 horas en milisegundos
   refresh-expiration: 604800000 # 7 días en milisegundos
 

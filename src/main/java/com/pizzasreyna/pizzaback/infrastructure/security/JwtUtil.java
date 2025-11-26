@@ -41,11 +41,21 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (MalformedJwtException | IllegalArgumentException e) {
+            throw new JwtException("Invalid JWT token: " + e.getMessage());
+        } catch (ExpiredJwtException e) {
+            throw new JwtException("JWT token is expired: " + e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            throw new JwtException("JWT token is unsupported: " + e.getMessage());
+        } catch (Exception e) {
+            throw new JwtException("JWT token validation error: " + e.getMessage());
+        }
     }
 
     private Boolean isTokenExpired(String token) {

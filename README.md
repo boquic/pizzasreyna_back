@@ -369,13 +369,13 @@ const stompClient = Stomp.over(socket);
 
 stompClient.connect({}, function(frame) {
     console.log('Conectado: ' + frame);
-    
+
     // Suscribirse a actualizaciones de un pedido específico
     stompClient.subscribe('/topic/pedidos/1', function(message) {
         const estado = JSON.parse(message.body);
         console.log('Nuevo estado del pedido:', estado);
     });
-    
+
     // Suscribirse a nuevos pedidos (para admin)
     stompClient.subscribe('/topic/pedidos/nuevos', function(message) {
         const pedidoId = JSON.parse(message.body);
@@ -533,16 +533,52 @@ docker-compose logs -f
 
 ## 📝 Configuración Adicional
 
-### Cambiar configuración de JWT
+### Configuración de JWT y Mejores Prácticas de Seguridad
 
-Edita `src/main/resources/application.yml`:
+La configuración de JWT se encuentra en `src/main/resources/application.yml`:
 
 ```yaml
 jwt:
-  secret: tu-clave-secreta-super-segura
-  expiration: 86400000      # 24 horas
-  refresh-expiration: 604800000  # 7 días
+  # Para desarrollo - en producción usar variables de entorno o un vault seguro
+  # El secret debe tener al menos 256 bits (32 caracteres) para el algoritmo HS256
+  secret: ${JWT_SECRET:UHl6emFzUmV5bmEyMDI0U2VjcmV0S2V5MzJDaGFyYWN0ZXJz}
+  expiration: 86400000      # 24 horas en milisegundos
+  refresh-expiration: 604800000  # 7 días en milisegundos
 ```
+
+#### Mejores Prácticas para JWT
+
+1. **Nunca hardcodear el secret en archivos de configuración**:
+   - Usa variables de entorno: `${JWT_SECRET}`
+   - Usa servicios de gestión de secretos como AWS Secrets Manager, HashiCorp Vault, etc.
+
+2. **Longitud y complejidad del secret**:
+   - Para HMAC-SHA256 (HS256), usa al menos 32 caracteres (256 bits)
+   - Usa caracteres aleatorios (letras, números, símbolos)
+   - Considera usar Base64 para representar valores binarios
+
+3. **Rotación de secrets**:
+   - Cambia el secret periódicamente
+   - Implementa un mecanismo para invalidar tokens antiguos
+
+4. **Configuración en diferentes entornos**:
+
+   **Desarrollo**:
+   ```bash
+   # Establecer variable de entorno en desarrollo
+   export JWT_SECRET=tu_secret_seguro_para_desarrollo
+   ```
+
+   **Producción**:
+   ```bash
+   # Establecer variable de entorno en producción
+   export JWT_SECRET=$(openssl rand -base64 32)
+   ```
+
+5. **Seguridad adicional**:
+   - Usa HTTPS para todas las comunicaciones
+   - Implementa tiempos de expiración cortos
+   - Considera usar JWE (JWT Encriptado) para información sensible
 
 ### Configurar CORS
 
