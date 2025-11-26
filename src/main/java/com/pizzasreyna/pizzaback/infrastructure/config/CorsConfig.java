@@ -26,7 +26,15 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
+
+        // If using "*" for allowed origins, we need to use addAllowedOriginPattern instead
+        // as browsers don't allow wildcard origins with credentials
+        if ("*".equals(allowedOrigins)) {
+            configuration.addAllowedOriginPattern("*");
+        } else {
+            configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
+        }
+
         configuration.setAllowedMethods(Arrays.asList(allowedMethods.split(",")));
         configuration.setAllowedHeaders(Arrays.asList(allowedHeaders.split(",")));
         configuration.setAllowCredentials(allowCredentials);

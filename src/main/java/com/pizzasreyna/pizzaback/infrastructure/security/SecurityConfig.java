@@ -30,6 +30,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.configure(http)) // Enable CORS
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**", "/ws/**", "/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
