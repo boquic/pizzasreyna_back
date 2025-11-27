@@ -46,7 +46,121 @@ docker-compose --version
 
 ## 🔧 Instalación y Ejecución
 
-### Opción 1: Ejecución Completa con Docker (Recomendado)
+> 💡 **Nota:** Después de clonar el proyecto, revisa `GUIA_INICIO_RAPIDO.md` para instrucciones detalladas.
+
+### 🐳 Opción 1: Con Docker (Recomendado)
+
+La forma más rápida de iniciar el proyecto completo:
+
+```bash
+# Clonar el repositorio
+git clone <repository-url>
+cd pizzaback
+
+# Iniciar todo (Backend + PostgreSQL)
+docker-compose up -d --build
+
+# Ver logs
+docker-compose logs -f
+
+# O usar el script helper
+.\start-docker.ps1
+```
+
+**URLs disponibles:**
+- Backend: http://localhost:8080
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- PostgreSQL: localhost:5432
+
+**Comandos útiles:**
+```bash
+# Ver estado
+.\start-docker.ps1 status
+
+# Ver logs
+.\start-docker.ps1 logs
+
+# Detener servicios
+.\start-docker.ps1 stop
+
+# Reconstruir todo
+.\start-docker.ps1 rebuild
+```
+
+---
+
+### 💻 Opción 2: Sin Docker (Desarrollo Local)
+
+Si prefieres correr el backend localmente:
+
+#### 1. Instalar PostgreSQL
+
+**Windows:**
+```powershell
+choco install postgresql
+net start postgresql-x64-15
+```
+
+**Linux:**
+```bash
+sudo apt install postgresql
+sudo systemctl start postgresql
+```
+
+**macOS:**
+```bash
+brew install postgresql@15
+brew services start postgresql@15
+```
+
+#### 2. Crear la Base de Datos
+
+```bash
+psql -U postgres
+CREATE DATABASE pizzasreyna;
+\q
+```
+
+#### 3. Iniciar el Backend
+
+```bash
+# Compilar y ejecutar
+./mvnw spring-boot:run
+
+# O construir JAR
+./mvnw clean package
+java -jar target/pizzaback-0.0.1-SNAPSHOT.jar
+```
+
+---
+
+### 🔄 Opción 3: Híbrida (PostgreSQL en Docker, Backend Local)
+
+Ideal para desarrollo con hot-reload:
+
+```bash
+# 1. Iniciar solo PostgreSQL
+docker-compose -f docker-compose.dev.yml up -d
+
+# 2. Iniciar backend localmente
+./mvnw spring-boot:run
+```
+
+---
+
+## ✅ Verificar Instalación
+
+Después de iniciar el backend, ejecuta:
+
+```powershell
+# Probar autenticación y endpoints
+.\test-carrito.ps1
+
+# O manualmente
+curl http://localhost:8080/api/pizzas
+```
+
+Deberías ver la lista de pizzas disponibles.
 
 Esta opción levanta tanto la base de datos como el backend en contenedores Docker.
 

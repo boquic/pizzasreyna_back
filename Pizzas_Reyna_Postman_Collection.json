@@ -1,0 +1,698 @@
+{
+	"info": {
+		"_postman_id": "pizzas-reyna-api-2024",
+		"name": "Pizzas Reyna API - Colección Completa",
+		"description": "Colección completa de endpoints de la API de Pizzas Reyna con ejemplos reales de la base de datos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "🔐 Autenticación",
+			"item": [
+				{
+					"name": "Login - Usuario Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('auth_token', jsonData.token);",
+									"    pm.environment.set('auth_token', jsonData.token);",
+									"    console.log('Token guardado: ' + jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@pizzasreyna.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						},
+						"description": "Login con el usuario administrador predefinido en la BD"
+					},
+					"response": []
+				},
+				{
+					"name": "Registro - Nuevo Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('auth_token', jsonData.token);",
+									"    pm.environment.set('auth_token', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"email\": \"juan.perez@example.com\",\n  \"password\": \"password123\",\n  \"telefono\": \"987654321\",\n  \"direccion\": \"Av. Principal 123, Lima\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "register"]
+						},
+						"description": "Registrar un nuevo usuario en el sistema"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de autenticación y registro"
+		},
+		{
+			"name": "🍕 Pizzas (Público)",
+			"item": [
+				{
+					"name": "Listar Todas las Pizzas Disponibles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pizzas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pizzas"]
+						},
+						"description": "Obtiene todas las pizzas disponibles del catálogo (no requiere autenticación)"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Pizza - Margarita (ID: 1)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pizzas/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pizzas", "1"]
+						},
+						"description": "Obtiene los detalles de la pizza Margarita"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Pizza - Pepperoni (ID: 2)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pizzas/2",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pizzas", "2"]
+						},
+						"description": "Obtiene los detalles de la pizza Pepperoni"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Pizza - Hawaiana (ID: 3)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pizzas/3",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pizzas", "3"]
+						},
+						"description": "Obtiene los detalles de la pizza Hawaiana"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Pizza - Suprema (ID: 6)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pizzas/6",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pizzas", "6"]
+						},
+						"description": "Obtiene los detalles de la pizza Suprema"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Pizza - Meat Lovers (ID: 8)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pizzas/8",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pizzas", "8"]
+						},
+						"description": "Obtiene los detalles de la pizza Meat Lovers"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints públicos para consultar el catálogo de pizzas"
+		},
+		{
+			"name": "🛒 Carrito de Compras",
+			"item": [
+				{
+					"name": "Obtener Mi Carrito",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuario/carrito",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "carrito"]
+						},
+						"description": "Obtiene el carrito del usuario autenticado"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Pizza Pepperoni al Carrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pizzaId\": 2,\n  \"comboId\": null,\n  \"cantidad\": 2,\n  \"notas\": \"Sin cebolla por favor\",\n  \"ingredientesPersonalizadosIds\": [10, 4]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuario/carrito/agregar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "carrito", "agregar"]
+						},
+						"description": "Agrega 2 pizzas Pepperoni con ingredientes extra: Tocino (ID: 10) y Champiñones (ID: 4)"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Pizza Hawaiana al Carrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pizzaId\": 3,\n  \"comboId\": null,\n  \"cantidad\": 1,\n  \"notas\": \"Extra piña\",\n  \"ingredientesPersonalizadosIds\": [9]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuario/carrito/agregar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "carrito", "agregar"]
+						},
+						"description": "Agrega 1 pizza Hawaiana con piña extra (ID: 9)"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Pizza Suprema al Carrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pizzaId\": 6,\n  \"comboId\": null,\n  \"cantidad\": 1,\n  \"notas\": \"Bien cocida\",\n  \"ingredientesPersonalizadosIds\": null\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuario/carrito/agregar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "carrito", "agregar"]
+						},
+						"description": "Agrega 1 pizza Suprema sin ingredientes adicionales"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Combo Familiar al Carrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pizzaId\": null,\n  \"comboId\": 1,\n  \"cantidad\": 1,\n  \"notas\": \"Para llevar\",\n  \"ingredientesPersonalizadosIds\": null\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuario/carrito/agregar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "carrito", "agregar"]
+						},
+						"description": "Agrega el Combo Familiar (ID: 1) al carrito"
+					},
+					"response": []
+				},
+				{
+					"name": "Limpiar Carrito",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuario/carrito/limpiar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "carrito", "limpiar"]
+						},
+						"description": "Elimina todos los items del carrito"
+					},
+					"response": []
+				}
+			],
+			"description": "Gestión del carrito de compras del usuario"
+		},
+		{
+			"name": "📦 Pedidos de Usuario",
+			"item": [
+				{
+					"name": "Crear Pedido - Pizza Simple",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"direccionEntrega\": \"Av. Arequipa 1234, Miraflores, Lima\",\n  \"telefonoContacto\": \"987654321\",\n  \"notas\": \"Tocar el timbre 2 veces\",\n  \"items\": [\n    {\n      \"pizzaId\": 2,\n      \"comboId\": null,\n      \"cantidad\": 2,\n      \"notas\": \"Sin cebolla\",\n      \"ingredientesPersonalizadosIds\": [10]\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuario/pedidos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "pedidos"]
+						},
+						"description": "Crea un pedido con 2 pizzas Pepperoni con tocino extra"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Pedido - Múltiples Pizzas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"direccionEntrega\": \"Jr. Los Olivos 456, San Isidro, Lima\",\n  \"telefonoContacto\": \"912345678\",\n  \"notas\": \"Dejar en recepción\",\n  \"items\": [\n    {\n      \"pizzaId\": 3,\n      \"comboId\": null,\n      \"cantidad\": 1,\n      \"notas\": \"Extra piña\",\n      \"ingredientesPersonalizadosIds\": [9]\n    },\n    {\n      \"pizzaId\": 6,\n      \"comboId\": null,\n      \"cantidad\": 1,\n      \"notas\": null,\n      \"ingredientesPersonalizadosIds\": null\n    },\n    {\n      \"pizzaId\": 8,\n      \"comboId\": null,\n      \"cantidad\": 1,\n      \"notas\": \"Bien cocida\",\n      \"ingredientesPersonalizadosIds\": [10, 13]\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuario/pedidos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "pedidos"]
+						},
+						"description": "Crea un pedido con 3 pizzas diferentes: Hawaiana, Suprema y Meat Lovers"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Pedido - Con Combo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"direccionEntrega\": \"Calle Las Flores 789, Surco, Lima\",\n  \"telefonoContacto\": \"998877665\",\n  \"notas\": \"Llamar al llegar\",\n  \"items\": [\n    {\n      \"pizzaId\": null,\n      \"comboId\": 1,\n      \"cantidad\": 1,\n      \"notas\": \"Combo Familiar\",\n      \"ingredientesPersonalizadosIds\": null\n    },\n    {\n      \"pizzaId\": 1,\n      \"comboId\": null,\n      \"cantidad\": 1,\n      \"notas\": \"Pizza Margarita adicional\",\n      \"ingredientesPersonalizadosIds\": [14]\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuario/pedidos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "pedidos"]
+						},
+						"description": "Crea un pedido con el Combo Familiar y una pizza Margarita adicional"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Mis Pedidos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuario/pedidos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "pedidos"]
+						},
+						"description": "Obtiene el historial de pedidos del usuario autenticado"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Detalle de Pedido (ID: 1)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuario/pedidos/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuario", "pedidos", "1"]
+						},
+						"description": "Obtiene los detalles completos del pedido con ID 1"
+					},
+					"response": []
+				}
+			],
+			"description": "Gestión de pedidos del usuario"
+		},
+		{
+			"name": "👨‍💼 Admin - Pizzas",
+			"item": [
+				{
+					"name": "Listar Todas las Pizzas (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pizzas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pizzas"]
+						},
+						"description": "Obtiene todas las pizzas incluyendo las no disponibles (requiere rol ADMIN)"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Nueva Pizza",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Pizza BBQ Especial\",\n  \"descripcion\": \"Pizza con salsa BBQ, pollo, tocino y cebolla caramelizada\",\n  \"precioBase\": 38.00,\n  \"tamanio\": \"GRANDE\",\n  \"disponible\": true,\n  \"imagenUrl\": \"https://example.com/bbq-especial.jpg\",\n  \"esPersonalizada\": false,\n  \"ingredientes\": [\n    {\n      \"id\": 1\n    },\n    {\n      \"id\": 12\n    },\n    {\n      \"id\": 10\n    },\n    {\n      \"id\": 7\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/pizzas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pizzas"]
+						},
+						"description": "Crea una nueva pizza con ingredientes: Mozzarella, Pollo, Tocino y Cebolla"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Pizza Existente (ID: 1)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Margarita Premium\",\n  \"descripcion\": \"Pizza clásica con salsa de tomate, mozzarella premium y albahaca fresca\",\n  \"precioBase\": 28.00,\n  \"tamanio\": \"MEDIANA\",\n  \"disponible\": true,\n  \"imagenUrl\": \"https://example.com/margarita-premium.jpg\",\n  \"esPersonalizada\": false,\n  \"ingredientes\": [\n    {\n      \"id\": 1\n    },\n    {\n      \"id\": 8\n    },\n    {\n      \"id\": 14\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/pizzas/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pizzas", "1"]
+						},
+						"description": "Actualiza la pizza Margarita con nuevo nombre y precio"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Pizza (ID: 9)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pizzas/9",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pizzas", "9"]
+						},
+						"description": "Elimina la pizza con ID 9 (usar un ID que no esté en uso en la BD de prueba)"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints administrativos para gestionar pizzas"
+		},
+		{
+			"name": "👨‍💼 Admin - Pedidos",
+			"item": [
+				{
+					"name": "Listar Todos los Pedidos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pedidos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pedidos"]
+						},
+						"description": "Obtiene todos los pedidos del sistema (requiere rol ADMIN)"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Estado - CONFIRMADO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pedidos/1/estado?estado=CONFIRMADO",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pedidos", "1", "estado"],
+							"query": [
+								{
+									"key": "estado",
+									"value": "CONFIRMADO"
+								}
+							]
+						},
+						"description": "Cambia el estado del pedido 1 a CONFIRMADO"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Estado - EN_PREPARACION",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pedidos/1/estado?estado=EN_PREPARACION",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pedidos", "1", "estado"],
+							"query": [
+								{
+									"key": "estado",
+									"value": "EN_PREPARACION"
+								}
+							]
+						},
+						"description": "Cambia el estado del pedido 1 a EN_PREPARACION"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Estado - LISTO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pedidos/1/estado?estado=LISTO",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pedidos", "1", "estado"],
+							"query": [
+								{
+									"key": "estado",
+									"value": "LISTO"
+								}
+							]
+						},
+						"description": "Cambia el estado del pedido 1 a LISTO"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Estado - EN_CAMINO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pedidos/1/estado?estado=EN_CAMINO",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pedidos", "1", "estado"],
+							"query": [
+								{
+									"key": "estado",
+									"value": "EN_CAMINO"
+								}
+							]
+						},
+						"description": "Cambia el estado del pedido 1 a EN_CAMINO"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Estado - ENTREGADO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pedidos/1/estado?estado=ENTREGADO",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pedidos", "1", "estado"],
+							"query": [
+								{
+									"key": "estado",
+									"value": "ENTREGADO"
+								}
+							]
+						},
+						"description": "Cambia el estado del pedido 1 a ENTREGADO"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Estado - CANCELADO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pedidos/1/estado?estado=CANCELADO",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pedidos", "1", "estado"],
+							"query": [
+								{
+									"key": "estado",
+									"value": "CANCELADO"
+								}
+							]
+						},
+						"description": "Cambia el estado del pedido 1 a CANCELADO"
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar Repartidor al Pedido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/pedidos/1/repartidor?repartidorId=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "admin", "pedidos", "1", "repartidor"],
+							"query": [
+								{
+									"key": "repartidorId",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Asigna el repartidor con ID 1 al pedido 1 (usar el ID del usuario admin como ejemplo)"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints administrativos para gestionar pedidos"
+		}
+	]
+}

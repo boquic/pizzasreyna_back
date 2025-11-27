@@ -4,32 +4,32 @@ VALUES ('Admin', 'Sistema', 'admin@pizzasreyna.com', '$2a$10$N9qo8uLOickgx2ZMRZo
 
 -- Insertar ingredientes
 INSERT INTO ingrediente (nombre, descripcion, precio_adicional, disponible, imagen_url) VALUES
-('Queso Mozzarella', 'Queso mozzarella de alta calidad', 2.00, true, 'https://example.com/mozzarella.jpg'),
-('Pepperoni', 'Pepperoni italiano premium', 3.50, true, 'https://example.com/pepperoni.jpg'),
-('Jamón', 'Jamón ahumado', 3.00, true, 'https://example.com/jamon.jpg'),
-('Champiñones', 'Champiñones frescos', 2.50, true, 'https://example.com/champinones.jpg'),
-('Aceitunas', 'Aceitunas negras', 2.00, true, 'https://example.com/aceitunas.jpg'),
-('Pimientos', 'Pimientos rojos y verdes', 2.00, true, 'https://example.com/pimientos.jpg'),
-('Cebolla', 'Cebolla morada', 1.50, true, 'https://example.com/cebolla.jpg'),
-('Tomate', 'Tomate fresco', 1.50, true, 'https://example.com/tomate.jpg'),
-('Piña', 'Piña en trozos', 2.50, true, 'https://example.com/pina.jpg'),
-('Tocino', 'Tocino crujiente', 3.50, true, 'https://example.com/tocino.jpg'),
-('Salchicha', 'Salchicha italiana', 3.00, true, 'https://example.com/salchicha.jpg'),
-('Pollo', 'Pollo a la parrilla', 4.00, true, 'https://example.com/pollo.jpg'),
-('Carne Molida', 'Carne molida sazonada', 4.00, true, 'https://example.com/carne.jpg'),
-('Albahaca', 'Albahaca fresca', 1.00, true, 'https://example.com/albahaca.jpg'),
-('Orégano', 'Orégano seco', 0.50, true, 'https://example.com/oregano.jpg');
+('Queso Mozzarella', 'Queso mozzarella de alta calidad', 2.00, true, 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400'),
+('Pepperoni', 'Pepperoni italiano premium', 3.50, true, 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400'),
+('Jamón', 'Jamón ahumado', 3.00, true, 'https://images.unsplash.com/photo-1624191249343-c7a4b2c5e9b6?w=400'),
+('Champiñones', 'Champiñones frescos', 2.50, true, 'https://images.unsplash.com/photo-1614961234441-64dbb6a0e8a2?w=400'),
+('Aceitunas', 'Aceitunas negras', 2.00, true, 'https://images.unsplash.com/photo-1452251889946-8ff5ea7f27f3?w=400'),
+('Pimientos', 'Pimientos rojos y verdes', 2.00, true, 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=400'),
+('Cebolla', 'Cebolla morada', 1.50, true, 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400'),
+('Tomate', 'Tomate fresco', 1.50, true, 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=400'),
+('Piña', 'Piña en trozos', 2.50, true, 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400'),
+('Tocino', 'Tocino crujiente', 3.50, true, 'https://images.unsplash.com/photo-1528607929212-2636ec44253e?w=400'),
+('Salchicha', 'Salchicha italiana', 3.00, true, 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=400'),
+('Pollo', 'Pollo a la parrilla', 4.00, true, 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400'),
+('Carne Molida', 'Carne molida sazonada', 4.00, true, 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=400'),
+('Albahaca', 'Albahaca fresca', 1.00, true, 'https://images.unsplash.com/photo-1618375569909-3c8616cf7733?w=400'),
+('Orégano', 'Orégano seco', 0.50, true, 'https://images.unsplash.com/photo-1583487960151-c5c29836b1b5?w=400');
 
 -- Insertar pizzas predefinidas
 INSERT INTO pizza (nombre, descripcion, precio_base, tamanio, disponible, imagen_url, es_personalizada) VALUES
-('Margarita', 'Pizza clásica con salsa de tomate, mozzarella y albahaca', 25.00, 'MEDIANA', true, 'https://example.com/margarita.jpg', false),
-('Pepperoni', 'Pizza con abundante pepperoni y queso mozzarella', 30.00, 'MEDIANA', true, 'https://example.com/pepperoni-pizza.jpg', false),
-('Hawaiana', 'Pizza con jamón, piña y queso mozzarella', 32.00, 'MEDIANA', true, 'https://example.com/hawaiana.jpg', false),
-('Cuatro Quesos', 'Mezcla de mozzarella, parmesano, gorgonzola y provolone', 35.00, 'MEDIANA', true, 'https://example.com/cuatro-quesos.jpg', false),
-('Vegetariana', 'Pizza con champiñones, pimientos, cebolla, aceitunas y tomate', 28.00, 'MEDIANA', true, 'https://example.com/vegetariana.jpg', false),
-('Suprema', 'Pizza con pepperoni, salchicha, champiñones, pimientos y cebolla', 38.00, 'GRANDE', true, 'https://example.com/suprema.jpg', false),
-('BBQ Chicken', 'Pollo a la parrilla con salsa BBQ, cebolla y queso', 36.00, 'GRANDE', true, 'https://example.com/bbq-chicken.jpg', false),
-('Meat Lovers', 'Pizza con pepperoni, jamón, tocino, salchicha y carne molida', 42.00, 'GRANDE', true, 'https://example.com/meat-lovers.jpg', false);
+('Margarita', 'Pizza clásica con salsa de tomate, mozzarella y albahaca', 25.00, 'MEDIANA', true, 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800', false),
+('Pepperoni', 'Pizza con abundante pepperoni y queso mozzarella', 30.00, 'MEDIANA', true, 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800', false),
+('Hawaiana', 'Pizza con jamón, piña y queso mozzarella', 32.00, 'MEDIANA', true, 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800', false),
+('Cuatro Quesos', 'Mezcla de mozzarella, parmesano, gorgonzola y provolone', 35.00, 'MEDIANA', true, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800', false),
+('Vegetariana', 'Pizza con champiñones, pimientos, cebolla, aceitunas y tomate', 28.00, 'MEDIANA', true, 'https://images.unsplash.com/photo-1511689660979-10d2b1aada49?w=800', false),
+('Suprema', 'Pizza con pepperoni, salchicha, champiñones, pimientos y cebolla', 38.00, 'GRANDE', true, 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=800', false),
+('BBQ Chicken', 'Pollo a la parrilla con salsa BBQ, cebolla y queso', 36.00, 'GRANDE', true, 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800', false),
+('Meat Lovers', 'Pizza con pepperoni, jamón, tocino, salchicha y carne molida', 42.00, 'GRANDE', true, 'https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=800', false);
 
 -- Relacionar ingredientes con pizzas
 -- Margarita (id: 1)
@@ -88,9 +88,9 @@ INSERT INTO pizza_ingrediente (pizza_id, ingrediente_id) VALUES
 
 -- Insertar combos
 INSERT INTO combo (nombre, descripcion, precio, descuento, disponible, imagen_url) VALUES
-('Combo Familiar', '2 pizzas grandes + 2 bebidas de 1.5L', 75.00, 10.00, true, 'https://example.com/combo-familiar.jpg'),
-('Combo Pareja', '1 pizza mediana + 2 bebidas personales', 35.00, 5.00, true, 'https://example.com/combo-pareja.jpg'),
-('Combo Party', '3 pizzas grandes + 3 bebidas de 1.5L', 110.00, 15.00, true, 'https://example.com/combo-party.jpg');
+('Combo Familiar', '2 pizzas grandes + 2 bebidas de 1.5L', 75.00, 10.00, true, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800'),
+('Combo Pareja', '1 pizza mediana + 2 bebidas personales', 35.00, 5.00, true, 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800'),
+('Combo Party', '3 pizzas grandes + 3 bebidas de 1.5L', 110.00, 15.00, true, 'https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=800');
 
 -- Relacionar pizzas con combos (ejemplo)
 INSERT INTO combo_pizza (combo_id, pizza_id, cantidad) VALUES
