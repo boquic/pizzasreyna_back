@@ -216,6 +216,13 @@ INSERT INTO rol (nombre, descripcion) VALUES
 ('USUARIO', 'Cliente del sistema'),
 ('REPARTIDOR', 'Repartidor de pedidos');
 
+-- Insertar usuarios admin adicionales de ejemplo
+-- Contraseña para admin1@pizzasreyna.com: admin123
+-- Contraseña para admin2@pizzasreyna.com: admin123
+INSERT INTO usuario (nombre, apellido, email, password, telefono, direccion, rol_id, activo) VALUES
+('Admin', 'Uno', 'admin1@pizzasreyna.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '999888777', 'Av. Principal 123', 1, true),
+('Admin', 'Dos', 'admin2@pizzasreyna.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '999777666', 'Av. Secundaria 456', 1, true);
+
 -- Insertar estados de pedido por defecto
 INSERT INTO estado_pedido (nombre, descripcion, orden) VALUES
 ('PENDIENTE', 'Pedido recibido, esperando confirmación', 1),

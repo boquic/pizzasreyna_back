@@ -4,14 +4,14 @@ import com.pizzasreyna.pizzaback.adapters.dto.AuthResponse;
 import com.pizzasreyna.pizzaback.adapters.dto.LoginRequest;
 import com.pizzasreyna.pizzaback.adapters.dto.RegisterRequest;
 import com.pizzasreyna.pizzaback.adapters.mapper.UsuarioMapper;
+import com.pizzasreyna.pizzaback.domain.exception.AuthenticationException;
+import com.pizzasreyna.pizzaback.domain.exception.ResourceNotFoundException;
 import com.pizzasreyna.pizzaback.domain.model.Rol;
 import com.pizzasreyna.pizzaback.domain.model.Usuario;
 import com.pizzasreyna.pizzaback.domain.repository.RolRepository;
 import com.pizzasreyna.pizzaback.domain.repository.UsuarioRepository;
 import com.pizzasreyna.pizzaback.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,18 +26,17 @@ public class AuthService {
     private final RolRepository rolRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
-    private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final UsuarioMapper usuarioMapper;
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         if (usuarioRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("El email ya está registrado");
+            throw new AuthenticationException("El email ya está registrado");
         }
 
         Rol rolUsuario = rolRepository.findByNombre("USUARIO")
-                .orElseThrow(() -> new RuntimeException("Rol USUARIO no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Rol USUARIO no encontrado"));
 
         Usuario usuario = Usuario.builder()
                 .nombre(request.getNombre())
@@ -64,13 +63,21 @@ public class AuthService {
     }
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
-
+        // Buscar usuario
         Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
+        // Verificar contraseña
+        if (!passwordEncoder.matches(request.getPassword(), usuario.getPassword())) {
+            throw new AuthenticationException("Contraseña incorrecta");
+        }
+
+        // Verificar que el usuario esté activo
+        if (!usuario.getActivo()) {
+            throw new AuthenticationException("Usuario inactivo");
+        }
+
+        // Generar tokens
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         String token = jwtUtil.generateToken(userDetails);
         String refreshToken = jwtUtil.generateRefreshToken(userDetails);

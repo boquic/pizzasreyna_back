@@ -22,6 +22,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        String method = request.getMethod();
+        
+        // Skip filter for OPTIONS requests (CORS preflight)
+        if ("OPTIONS".equals(method)) {
+            return true;
+        }
+        
+        // Skip filter for public endpoints
+        return path.startsWith("/api/auth/") || 
+               path.startsWith("/api/pizzas") ||
+               path.startsWith("/ws/") ||
+               path.startsWith("/api-docs") ||
+               path.startsWith("/swagger-ui") ||
+               path.startsWith("/v3/api-docs");
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
@@ -33,33 +52,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             try {
-                // Only proceed if the JWT token is not empty or null
-                if (jwt != null && !jwt.isEmpty()) {
-                    username = jwtUtil.extractUsername(jwt);
-
-                    // Only proceed with authentication if username was successfully extracted
-                    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
-                        try {
-                            if (jwtUtil.validateToken(jwt, userDetails)) {
-                                UsernamePasswordAuthenticationToken authenticationToken = 
-                                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                            }
-                        } catch (Exception e) {
-                            logger.error("Error validating JWT token", e);
-                            // Continue without authentication
-                        }
-                    }
-                }
+                username = jwtUtil.extractUsername(jwt);
             } catch (Exception e) {
                 logger.error("Error extracting username from JWT", e);
-                // Continue without authentication
             }
         }
 
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
+            if (jwtUtil.validateToken(jwt, userDetails)) {
+                UsernamePasswordAuthenticationToken authenticationToken = 
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+        }
+        
         filterChain.doFilter(request, response);
     }
 }
